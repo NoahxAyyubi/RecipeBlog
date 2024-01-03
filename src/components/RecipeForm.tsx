@@ -1,41 +1,67 @@
-// RecipeForm.tsx
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import { Form, Button, Container } from "react-bootstrap";
 
 const RecipeForm: React.FC = () => {
   const [recipe, setRecipe] = useState({
-    title: '',
-    ingredients: [],
+    title: "",
+    ingredients: "",
+    instructions: "",
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      // Send a POST request to add a new recipe
-      const response = await axios.post('http://your-json-server-url/recipes', recipe);
-
-      // Handle the response, e.g., show a success message
-      console.log('Recipe added successfully:', response.data);
-
-      // Clear the form or navigate to the updated recipe details page
-      setRecipe({
-        title: '',
-        ingredients: [],
-      });
-    } catch (error) {
-      // Handle errors, e.g., show an error message
-      console.error('Error adding recipe:', error);
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRecipe({ ...recipe, [e.target.name]: e.target.value });
   };
 
-  // Rest of the component code
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Submit your recipe data to state or backend here
+    console.log("Recipe to add:", recipe);
+    // Reset form after submission
+    setRecipe({ title: "", ingredients: "", instructions: "" });
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {/* Form fields for title and ingredients */}
-      <button type="submit">Add Recipe</button>
-    </form>
+    <Container>
+      <h2>Add a Recipe</h2>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formRecipeTitle">
+          <Form.Label>Title</Form.Label>
+          <Form.Control
+            type="text"
+            name="title"
+            value={recipe.title}
+            onChange={handleChange}
+            placeholder="Enter recipe title"
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formRecipeIngredients">
+          <Form.Label>Ingredients</Form.Label>
+          <Form.Control
+            type="text"
+            name="ingredients"
+            value={recipe.ingredients}
+            onChange={handleChange}
+            placeholder="List ingredients"
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formRecipeInstructions">
+          <Form.Label>Instructions</Form.Label>
+          <Form.Control
+            as="textarea"
+            name="instructions"
+            value={recipe.instructions}
+            onChange={handleChange}
+            placeholder="Recipe instructions"
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Add Recipe
+        </Button>
+      </Form>
+    </Container>
   );
 };
 
