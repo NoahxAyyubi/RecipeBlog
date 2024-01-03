@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+interface Recipe {
+  id: number;
+  title: string;
+}
+
 const RecipeList: React.FC = () => {
-  // Dummy data, replace with actual data fetched from the server
-  const recipes = [
-    { id: 1, title: 'Pasta Carbonara' },
-    { id: 2, title: 'Chicken Stir Fry' },
-    // Add more recipes as needed
-  ];
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+
+  useEffect(() => {
+    // Fetch data from the JSON server when the component mounts
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/recipes');
+        const data = await response.json();
+        setRecipes(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -24,5 +39,6 @@ const RecipeList: React.FC = () => {
 };
 
 export default RecipeList;
+
 //Displays a list of recipes with their titles.
 //Utilizes React Router (Link) to navigate to the details page for each recipe.
