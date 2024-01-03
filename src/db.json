@@ -1,0 +1,21 @@
+{
+    "recipes": [
+      {
+        "id": 1,
+        "title": "Pasta Carbonara",
+        "ingredients": ["Pasta", "Eggs", "Bacon"]
+      },
+      {
+        "id": 2,
+        "title": "Chicken Alfredo",
+        "ingredients": ["Chicken", "Fettuccine", "Cream", "Parmesan"]
+      },
+      {
+        "id": 3,
+        "title": "Margherita Pizza",
+        "ingredients": ["Dough", "Tomato Sauce", "Mozzarella", "Basil"]
+      }
+     
+    ]
+  }
+  

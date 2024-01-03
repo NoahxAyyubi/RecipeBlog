@@ -1,19 +1,29 @@
-import React from "react";
-// import { useParams } from "react-router-dom";
 
-// interface ParamTypes {
-//   recipeId: string;
-// }
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
+interface Recipe {
+  id: number;
+  title: string;
+  ingredients: string[];
+}
 
 const RecipeDetail: React.FC = () => {
-  // const { recipeId } = useParams();
+  const { recipeId } = useParams();
+  const [recipe, setRecipe] = useState<Recipe | null>(null);
 
-  // Dummy data, replace with actual data fetched from the server
-  const recipe = {
-    id: 1,
-    title: "Pasta Carbonara",
-    ingredients: ["Pasta", "Eggs", "Bacon"],
-  };
+  useEffect(() => {
+    // Fetch recipe details from the server
+    axios.get(`/recipes/${recipeId}`).then((response) => {
+      setRecipe(response.data);
+    });
+  }, [recipeId]);
+
+  if (!recipe) {
+    return <p>Loading...</p>;
+  }
+
 
   return (
     <div>
@@ -30,6 +40,7 @@ const RecipeDetail: React.FC = () => {
 };
 
 export default RecipeDetail;
+
 
 //Retrieves and displays details for a specific recipe, including its title and ingredients.
 //Utilizes React Router (useParams) to dynamically fetch the recipe based on the route parameter.
