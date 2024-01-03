@@ -1,14 +1,19 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React from "react";
+// import { useParams } from "react-router-dom";
 
-interface ParamTypes {
-  recipeId: string;
-}
+// interface ParamTypes {
+//   recipeId: string;
+// }
 
 const RecipeDetail: React.FC = () => {
-  const { recipeId } = useParams<ParamTypes>();
+  // const { recipeId } = useParams();
+
   // Dummy data, replace with actual data fetched from the server
-  const recipe = { id: 1, title: 'Pasta Carbonara', ingredients: ['Pasta', 'Eggs', 'Bacon'] };
+  const recipe = {
+    id: 1,
+    title: "Pasta Carbonara",
+    ingredients: ["Pasta", "Eggs", "Bacon"],
+  };
 
   return (
     <div>
